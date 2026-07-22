@@ -22,6 +22,7 @@ application.properties
 application-dev.properties
 application.yml
 **/application-*.properties
+!**/application-example.properties
 *.env
 
 # IDE
