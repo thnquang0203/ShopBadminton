@@ -35,4 +35,6 @@ application.yml
 Thumbs.db
 
 # Database (khong push du lieu that)
-database/
+database/*.mdf
+database/*.ldf
+database/*.bak
