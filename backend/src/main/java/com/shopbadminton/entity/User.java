@@ -43,7 +43,7 @@ public class User {
 	@Column(name = "phone", length = 20)
 	private String soDienThoai;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "role_id", nullable = false)
 	private Role vaiTro;
 	
