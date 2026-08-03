@@ -3,7 +3,7 @@ package com.shopbadminton.service.impl;
 import com.shopbadminton.dto.request.CustomerRequest;
 import com.shopbadminton.dto.response.CustomerResponse;
 import com.shopbadminton.entity.Customer;
-import com.shopbadminton.exception.BadRequestException;
+import com.shopbadminton.exception.ResourceNotFoundException;
 import com.shopbadminton.mapper.CustomerMapper;
 import com.shopbadminton.repository.CustomerRepository;
 import com.shopbadminton.service.CustomerService;
@@ -75,6 +75,6 @@ public class CustomerServiceImpl implements CustomerService {
     private Customer timTheoId(Long id) {
         return customerRepository.findById(id)
                 .filter(Customer::getDangHoatDong)
-                .orElseThrow(() -> new BadRequestException("Khong tim thay khach hang"));
+                .orElseThrow(() -> new ResourceNotFoundException("Khong tim thay khach hang"));
     }
 }

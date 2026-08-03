@@ -5,6 +5,7 @@ import com.shopbadminton.dto.response.EmployeeResponse;
 import com.shopbadminton.entity.Employee;
 import com.shopbadminton.entity.User;
 import com.shopbadminton.exception.BadRequestException;
+import com.shopbadminton.exception.ResourceNotFoundException;
 import com.shopbadminton.mapper.EmployeeMapper;
 import com.shopbadminton.repository.EmployeeRepository;
 import com.shopbadminton.repository.UserRepository;
@@ -41,8 +42,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public EmployeeResponse taoMoi(EmployeeRequest request) {
-        User nguoiDung = userRepository.findById(request.getMaNguoiDung())
-                .orElseThrow(() -> new BadRequestException("Khong tim thay User tuong ung"));
+    	User nguoiDung = userRepository.findById(request.getMaNguoiDung())
+    	        .orElseThrow(() -> new ResourceNotFoundException("Khong tim thay User tuong ung"));
 
         Employee nhanVien = Employee.builder()
                 .nguoiDung(nguoiDung)
@@ -78,6 +79,6 @@ public class EmployeeServiceImpl implements EmployeeService {
     private Employee timTheoId(Long id) {
         return employeeRepository.findById(id)
                 .filter(Employee::getDangHoatDong)
-                .orElseThrow(() -> new BadRequestException("Khong tim thay nhan vien"));
+                .orElseThrow(() -> new ResourceNotFoundException("Khong tim thay nhan vien"));
     }
 }

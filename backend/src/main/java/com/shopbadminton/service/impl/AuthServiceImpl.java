@@ -6,6 +6,7 @@ import com.shopbadminton.dto.response.AuthResponse;
 import com.shopbadminton.entity.Role;
 import com.shopbadminton.entity.User;
 import com.shopbadminton.exception.BadRequestException;
+import com.shopbadminton.exception.DuplicateResourceException;
 import com.shopbadminton.repository.RoleRepository;
 import com.shopbadminton.repository.UserRepository;
 import com.shopbadminton.security.JwtTokenProvider;
@@ -37,7 +38,7 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public AuthResponse dangKy(RegisterRequest request) {
         if (userRepository.findByTenDangNhap(request.getTenDangNhap()).isPresent()) {
-            throw new BadRequestException("Ten dang nhap da ton tai");
+        	throw new DuplicateResourceException("Ten dang nhap da ton tai");
         }
 
         Role vaiTroKhachHang = roleRepository.findByTenVaiTro("CUSTOMER")

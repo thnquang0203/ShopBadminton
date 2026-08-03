@@ -73,4 +73,25 @@ public class GlobalExceptionHandler {
                         .build()
         );
     }
+    @ExceptionHandler(DuplicateResourceException.class)
+    public ResponseEntity<ErrorResponse> xuLyTrungDuLieu(DuplicateResourceException ex) {
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(
+                ErrorResponse.builder()
+                        .maLoi(HttpStatus.CONFLICT.value())
+                        .thongBao(ex.getMessage())
+                        .thoiGian(LocalDateTime.now())
+                        .build()
+        );
+    }
+
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public ResponseEntity<ErrorResponse> xuLyKhongTimThay(ResourceNotFoundException ex) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                ErrorResponse.builder()
+                        .maLoi(HttpStatus.NOT_FOUND.value())
+                        .thongBao(ex.getMessage())
+                        .thoiGian(LocalDateTime.now())
+                        .build()
+        );
+    }
 }
