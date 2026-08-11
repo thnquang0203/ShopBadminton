@@ -32,3 +32,10 @@ build/
 ### VS Code ###
 .vscode/
 /.apt_generated_tests/
+
+###Uploads###
+uploads/
+*.jpg
+*.jpeg
+*.png
+*.webp
