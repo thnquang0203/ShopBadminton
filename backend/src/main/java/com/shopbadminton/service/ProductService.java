@@ -5,8 +5,12 @@ import com.shopbadminton.dto.response.ProductResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.math.BigDecimal;
+
 public interface ProductService {
     Page<ProductResponse> layDanhSach(Pageable pageable);
+    Page<ProductResponse> timKiemVaLoc(String tuKhoa, Integer maDanhMuc, Integer maThuongHieu,
+                                        BigDecimal giaTu, BigDecimal giaDen, Pageable pageable);
     ProductResponse layChiTiet(Long id);
     ProductResponse taoMoi(ProductRequest request);
     ProductResponse capNhat(Long id, ProductRequest request);

@@ -4,6 +4,9 @@ import com.shopbadminton.dto.request.ProductRequest;
 import com.shopbadminton.dto.response.ProductResponse;
 import com.shopbadminton.service.ProductService;
 import jakarta.validation.Valid;
+
+import java.math.BigDecimal;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -22,10 +25,19 @@ public class ProductController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<ProductResponse>> layDanhSach(Pageable pageable) {
+    public ResponseEntity<Page<ProductResponse>> layDanhSach(
+         @RequestParam(required = false) String tuKhoa,
+         @RequestParam(required = false) Integer maDanhMuc,
+         @RequestParam(required = false) Integer maThuongHieu,
+         @RequestParam(required = false) BigDecimal giaTu,
+         @RequestParam(required = false) BigDecimal giaDen,
+         Pageable pageable) {
+
+        if (tuKhoa != null || maDanhMuc != null || maThuongHieu != null || giaTu != null || giaDen != null) {
+            return ResponseEntity.ok(productService.timKiemVaLoc(tuKhoa, maDanhMuc, maThuongHieu, giaTu, giaDen, pageable));
+        }
         return ResponseEntity.ok(productService.layDanhSach(pageable));
     }
-
     @GetMapping("/{id}")
     public ResponseEntity<ProductResponse> layChiTiet(@PathVariable Long id) {
         return ResponseEntity.ok(productService.layChiTiet(id));
