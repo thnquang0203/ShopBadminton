@@ -58,6 +58,8 @@ public class SecurityConfig {
             	    .requestMatchers(org.springframework.http.HttpMethod.GET, "/api/categories/**").permitAll()
             	    .requestMatchers(org.springframework.http.HttpMethod.GET, "/api/brands/**").permitAll()
             	    .requestMatchers(org.springframework.http.HttpMethod.GET, "/api/products/**").permitAll()
+            	    .requestMatchers(org.springframework.http.HttpMethod.GET, "/api/products/*/images").permitAll()
+            	    .requestMatchers("/images/**").permitAll()
             	    .anyRequest().authenticated()
             	)
             .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);

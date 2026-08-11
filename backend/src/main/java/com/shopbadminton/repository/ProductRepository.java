@@ -11,5 +11,5 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 	@Query("SELECT p FROM Product p JOIN FETCH p.danhMuc JOIN FETCH p.thuongHieu WHERE p.dangHoatDong = true")
 	Page<Product> findAllActiveWithDetails(Pageable pageable);
 	@Query("SELECT p FROM Product p JOIN FETCH p.danhMuc JOIN FETCH p.thuongHieu WHERE p.dangHoatDong = true")
-	java.util.Optional<Product> findAllActiveWithDetails(Long id);
+	java.util.Optional<Product> findActiveByIdWithDetails(Long id);
 }
