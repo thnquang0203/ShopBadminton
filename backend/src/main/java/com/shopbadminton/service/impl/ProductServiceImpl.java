@@ -71,8 +71,8 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public ProductResponse capNhat(Long id, ProductRequest request) {
         Product sanPham = productRepository.findById(id)
-                .filter(Product::getDangHoatDong)
-                .orElseThrow(() -> new ResourceNotFoundException("Không tìm thấy sản phẩm"));
+        		.filter(Product::getDangHoatDong)
+                .orElseThrow(() -> new ResourceNotFoundException("Không tìm thấy sản phẩm hoặc đã bị xóa"));
 
         Category danhMuc = categoryRepository.findById(request.getMaDanhMuc())
                 .orElseThrow(() -> new ResourceNotFoundException("Không tìm thấy danh mục"));

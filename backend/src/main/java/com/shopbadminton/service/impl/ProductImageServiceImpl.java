@@ -4,10 +4,12 @@ import com.shopbadminton.dto.response.ProductImageResponse;
 import com.shopbadminton.entity.Product;
 import com.shopbadminton.entity.ProductImage;
 import com.shopbadminton.exception.BadRequestException;
+import com.shopbadminton.exception.FileUploadException;
 import com.shopbadminton.exception.ResourceNotFoundException;
 import com.shopbadminton.repository.ProductImageRepository;
 import com.shopbadminton.repository.ProductRepository;
 import com.shopbadminton.service.ProductImageService;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -43,6 +45,19 @@ public class ProductImageServiceImpl implements ProductImageService {
         if (!List.of(".jpg", ".jpeg", ".png").contains(duoiFile.toLowerCase())) {
             throw new BadRequestException("Chỉ chấp nhận file jpg, jpeg, png");
         }
+        
+        if (file.getSize() > 5 * 1024 * 1024) {
+            throw new BadRequestException("Dung lượng file không được vượt quá 5MB");
+        }
+        if (laAnhDaiDien) {
+            List<ProductImage> anhCu = productImageRepository.findBySanPham_MaSanPham(maSanPham);
+            anhCu.forEach(anh -> {
+                if (Boolean.TRUE.equals(anh.getLaAnhDaiDien())) {
+                    anh.setLaAnhDaiDien(false);
+                    productImageRepository.save(anh);
+                }
+            });
+        }
 
         String tenFileMoi = UUID.randomUUID() + duoiFile;
 
@@ -54,7 +69,7 @@ public class ProductImageServiceImpl implements ProductImageService {
             Path duongDanLuu = thuMuc.resolve(tenFileMoi);
             Files.copy(file.getInputStream(), duongDanLuu);
         } catch (IOException e) {
-            throw new BadRequestException("Lỗi khi lưu file ảnh: " + e.getMessage());
+            throw new FileUploadException("Lỗi khi lưu file ảnh: " + e.getMessage());
         }
 
         ProductImage anh = ProductImage.builder()

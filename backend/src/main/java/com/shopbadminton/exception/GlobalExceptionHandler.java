@@ -94,4 +94,14 @@ public class GlobalExceptionHandler {
                         .build()
         );
     }
+    @ExceptionHandler(FileUploadException.class)
+    public ResponseEntity<ErrorResponse> xuLyLoiUploadFile(FileUploadException ex) {
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
+                ErrorResponse.builder()
+                        .maLoi(HttpStatus.INTERNAL_SERVER_ERROR.value())
+                        .thongBao(ex.getMessage())
+                        .thoiGian(LocalDateTime.now())
+                        .build()
+        );
+    }
 }
