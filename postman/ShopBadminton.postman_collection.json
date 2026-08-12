@@ -262,6 +262,495 @@
           "response": []
         }
       ]
+    },
+    {
+      "name": "Category",
+      "item": [
+        {
+          "name": "Category",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": []
+        },
+        {
+          "name": "Category",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/categories",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "categories"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Category",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/categories",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "categories"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "New Request",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/categories",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "categories"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Category",
+          "request": {
+            "method": "POST",
+            "header": []
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Supplier",
+      "item": [
+        {
+          "name": "Supplier",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": []
+        },
+        {
+          "name": "Supplier",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Product",
+      "item": [
+        {
+          "name": "Product",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": []
+        },
+        {
+          "name": "Product_Yonex",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": []
+        },
+        {
+          "name": "Product_timThuongHieu",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": []
+        },
+        {
+          "name": "Product_timTheoGia",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": []
+        },
+        {
+          "name": "Product_timCoDK",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": []
+        },
+        {
+          "name": "Product",
+          "request": {
+            "method": "POST",
+            "header": []
+          },
+          "response": []
+        },
+        {
+          "name": "Product",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"tenSanPham\": \"Vot Yonex Astrox 100 - Ban Cap Nhat\",\r\n  \"moTa\": \"Da giam gia\",\r\n  \"gia\": 3200000,\r\n  \"maDanhMuc\": 1,\r\n  \"maThuongHieu\": 1\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/products/3",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "products",
+                "3"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Image",
+      "item": [
+        {
+          "name": "Image",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "uuid": "5ddf6e8e-cff7-4717-826e-af7d71010e75",
+                  "src": "/D:/pexels-qui-nguyen-7862521-34382228.jpg"
+                },
+                {
+                  "key": "laAnhDaiDien",
+                  "value": "true",
+                  "type": "text",
+                  "uuid": "7ba3ce51-76ec-4866-b52f-dcc41f50a468"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/api/products/1/images",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "products",
+                "1",
+                "images"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Image",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "uuid": "22684384-c60f-4e3b-a64e-d0db497cbfa5",
+                  "src": "/D:/4b32464fbef3a412f0220166cd525967.jpg"
+                },
+                {
+                  "key": "laAnhDaiDien",
+                  "value": "true",
+                  "type": "text",
+                  "uuid": "7777de35-8f2a-4d33-8bfc-8fe5330b3ebd"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/api/products/1/images",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "products",
+                "1",
+                "images"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Brand",
+      "item": [
+        {
+          "name": "Brand",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "/api/brands",
+              "path": [
+                "api",
+                "brands"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Brand",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"tenThuongHieu\": \"Yonex Official\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/brands/1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "brands",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "ProductImage",
+      "item": [
+        {
+          "name": "ProductImage_saiDinhDang",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "uuid": "8566461e-2544-49bf-8d78-2f75920dc33c",
+                  "src": "/D:/vot-cau-long-dep.webp"
+                },
+                {
+                  "key": "laAnhDaiDien",
+                  "value": "false",
+                  "type": "text",
+                  "uuid": "8d5d3393-6c0c-455b-a9cd-b99d1697c9b7"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/api/products/3/images",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "products",
+                "3",
+                "images"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "ProductImage",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "uuid": "dd08ed53-41e7-4810-8bb6-8abdb5e8c886",
+                  "src": "/D:/ph-11134207-7r991-lq8jzbu4p1lb44.jpg"
+                },
+                {
+                  "key": "laAnhDaiDien",
+                  "value": "true",
+                  "type": "text",
+                  "uuid": "b89c6138-67c6-4a9f-ac30-256d6b64e56e"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/api/products/3/images",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "products",
+                "3",
+                "images"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "ProductImage",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": []
+        },
+        {
+          "name": "ProductImage",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": []
+        }
+      ]
     }
   ]
 }

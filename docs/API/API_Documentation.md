@@ -60,3 +60,33 @@
 | 403 | Không đủ quyền |
 | 404 | Không tìm thấy resource |
 | 409 | Trùng dữ liệu (username...) |
+
+
+## Category (GET công khai, ghi dữ liệu ADMIN)
+| Method | Endpoint |
+|---|---|
+| GET | /api/categories |
+| POST | /api/categories |
+| PUT | /api/categories/{id} |
+| DELETE | /api/categories/{id} |
+
+## Brand (tương tự Category)
+`/api/brands...`
+
+## Supplier (toàn bộ chỉ ADMIN)
+`/api/admin/suppliers...`
+
+## Product (GET công khai, ghi dữ liệu ADMIN)
+| Method | Endpoint | Query param |
+|---|---|---|
+| GET | /api/products | tuKhoa, maDanhMuc, maThuongHieu, giaTu, giaDen |
+| POST | /api/products | — |
+| PUT | /api/products/{id} | — |
+| DELETE | /api/products/{id} | — |
+
+## ProductImage
+| Method | Endpoint |
+|---|---|
+| GET | /api/products/{maSanPham}/images |
+| POST | /api/products/{maSanPham}/images (multipart/form-data: file, laAnhDaiDien) |
+| DELETE | /api/products/{maSanPham}/images/{maAnh} |
