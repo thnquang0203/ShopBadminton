@@ -10,4 +10,5 @@ public interface InventoryService {
     Page<InventoryResponse> layDanhSach(Pageable pageable);
     InventoryResponse layTheoSanPham(Long maSanPham);
     List<InventoryResponse> layTonKhoThap();
+	void truKho(Long maSanPham, Integer soLuongTru);
 }

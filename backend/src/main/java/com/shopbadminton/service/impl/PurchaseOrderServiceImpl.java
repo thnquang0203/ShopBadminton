@@ -4,6 +4,7 @@ import com.shopbadminton.dto.request.PurchaseDetailRequest;
 import com.shopbadminton.dto.request.PurchaseOrderRequest;
 import com.shopbadminton.dto.response.PurchaseOrderResponse;
 import com.shopbadminton.entity.*;
+import com.shopbadminton.exception.BadRequestException;
 import com.shopbadminton.exception.ResourceNotFoundException;
 import com.shopbadminton.repository.*;
 import com.shopbadminton.service.PurchaseOrderService;
@@ -26,6 +27,8 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
     private final ProductRepository productRepository;
     private final InventoryRepository inventoryRepository;
     private final UserRepository userRepository;
+    
+    private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(PurchaseOrderServiceImpl.class);
 
     public PurchaseOrderServiceImpl(PurchaseOrderRepository purchaseOrderRepository,
                                      PurchaseDetailRepository purchaseDetailRepository,
@@ -58,7 +61,15 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
     @Override
     @Transactional
     public PurchaseOrderResponse taoPhieuNhap(PurchaseOrderRequest request, String tenDangNhapNguoiTao) {
-        Supplier nhaCungCap = supplierRepository.findById(request.getMaNhaCungCap())
+    	// Kiểm tra trùng sản phẩm trong cungf phiếu nhập
+    	long soSanPhamKhongTrung = request.getChiTiet().stream()
+    	        .map(PurchaseDetailRequest::getMaSanPham)
+    	        .distinct()
+    	        .count();
+    	if (soSanPhamKhongTrung != request.getChiTiet().size()) {
+    	    throw new BadRequestException("Khong duoc nhap trung san pham trong cung 1 phieu nhap");
+    	}
+    	Supplier nhaCungCap = supplierRepository.findById(request.getMaNhaCungCap())
                 .orElseThrow(() -> new ResourceNotFoundException("Không tìm thấy nhà cung cấp"));
 
         User nguoiDung = userRepository.findByTenDangNhap(tenDangNhapNguoiTao)
@@ -99,6 +110,9 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
 
         phieuNhap.setTongTien(tongTien);
         purchaseOrderRepository.save(phieuNhap);
+        
+        log.info("Tạo phiếu nhập thành công: maPhieuNhap={}, nhaCungCap={}, tongTien={}",
+                phieuNhap.getMaPhieuNhap(), nhaCungCap.getTenNhaCungCap(), tongTien);
 
         return toResponse(phieuNhap);
     }

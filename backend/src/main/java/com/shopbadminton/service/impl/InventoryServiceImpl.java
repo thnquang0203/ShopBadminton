@@ -2,6 +2,7 @@ package com.shopbadminton.service.impl;
 
 import com.shopbadminton.dto.response.InventoryResponse;
 import com.shopbadminton.entity.Inventory;
+import com.shopbadminton.exception.BadRequestException;
 import com.shopbadminton.exception.ResourceNotFoundException;
 import com.shopbadminton.mapper.InventoryMapper;
 import com.shopbadminton.repository.InventoryRepository;
@@ -41,5 +42,17 @@ public class InventoryServiceImpl implements InventoryService {
         return inventoryRepository.findAllTonKhoThap().stream()
                 .map(inventoryMapper::toResponse)
                 .collect(Collectors.toList());
+    }
+    @Override
+    public void truKho(Long maSanPham, Integer soLuongTru) {
+        Inventory tonKho = inventoryRepository.findBySanPham_MaSanPham(maSanPham)
+                .orElseThrow(() -> new ResourceNotFoundException("Sản phẩm chưa có dữ liệu tồn kho"));
+
+        if (tonKho.getSoLuong() < soLuongTru) {
+            throw new BadRequestException("Tồn kho không đủ để xuất: còn lại" + tonKho.getSoLuong());
+        }
+
+        tonKho.setSoLuong(tonKho.getSoLuong() - soLuongTru);
+        inventoryRepository.save(tonKho);
     }
 }
