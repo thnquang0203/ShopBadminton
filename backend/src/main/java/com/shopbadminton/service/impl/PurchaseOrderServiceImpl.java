@@ -61,14 +61,16 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
     @Override
     @Transactional
     public PurchaseOrderResponse taoPhieuNhap(PurchaseOrderRequest request, String tenDangNhapNguoiTao) {
+    	
+    	
     	// Kiểm tra trùng sản phẩm trong cungf phiếu nhập
-    	long soSanPhamKhongTrung = request.getChiTiet().stream()
-    	        .map(PurchaseDetailRequest::getMaSanPham)
-    	        .distinct()
-    	        .count();
-    	if (soSanPhamKhongTrung != request.getChiTiet().size()) {
-    	    throw new BadRequestException("Khong duoc nhap trung san pham trong cung 1 phieu nhap");
-    	}
+        long soSanPhamKhongTrung = request.getChiTiet().stream()
+                .map(PurchaseDetailRequest::getMaSanPham)
+                .distinct()
+                .count();
+        if (soSanPhamKhongTrung != request.getChiTiet().size()) {
+            throw new BadRequestException("Không được nhập trùng sản phẩm trong cùng 1 phiếu nhập");
+        }
     	Supplier nhaCungCap = supplierRepository.findById(request.getMaNhaCungCap())
                 .orElseThrow(() -> new ResourceNotFoundException("Không tìm thấy nhà cung cấp"));
 
@@ -77,7 +79,7 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
 
         Employee nhanVien = employeeRepository.findByNguoiDung_MaNguoiDung(nguoiDung.getMaNguoiDung())
                 .orElseThrow(() -> new ResourceNotFoundException("Tài khoản không phải nhân viên"));
-
+        
         PurchaseOrder phieuNhap = PurchaseOrder.builder()
                 .nhaCungCap(nhaCungCap)
                 .nhanVien(nhanVien)
