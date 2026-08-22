@@ -3,9 +3,11 @@ package com.shopbadminton.service.impl;
 import com.shopbadminton.dto.request.CustomerRequest;
 import com.shopbadminton.dto.response.CustomerResponse;
 import com.shopbadminton.entity.Customer;
+import com.shopbadminton.entity.User;
 import com.shopbadminton.exception.ResourceNotFoundException;
 import com.shopbadminton.mapper.CustomerMapper;
 import com.shopbadminton.repository.CustomerRepository;
+import com.shopbadminton.repository.UserRepository;
 import com.shopbadminton.service.CustomerService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,10 +18,13 @@ public class CustomerServiceImpl implements CustomerService {
 
     private final CustomerRepository customerRepository;
     private final CustomerMapper customerMapper;
+    private final UserRepository userRepository;
 
-    public CustomerServiceImpl(CustomerRepository customerRepository, CustomerMapper customerMapper) {
-        this.customerRepository = customerRepository;
-        this.customerMapper = customerMapper;
+    public CustomerServiceImpl(CustomerRepository customerRepository, CustomerMapper customerMapper,
+            UserRepository userRepository) {
+    			this.customerRepository = customerRepository;
+    			this.customerMapper = customerMapper;
+    			this.userRepository = userRepository;
     }
 
     @Override
@@ -42,17 +47,21 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public CustomerResponse taoMoi(CustomerRequest request) {
-        Customer khachHang = Customer.builder()
+        Customer.CustomerBuilder builder = Customer.builder()
                 .hoTen(request.getHoTen())
                 .soDienThoai(request.getSoDienThoai())
                 .email(request.getEmail())
-                .diaChi(request.getDiaChi())
-                .build();
+                .diaChi(request.getDiaChi());
 
+        if (request.getMaNguoiDung() != null) {
+            User nguoiDung = userRepository.findById(request.getMaNguoiDung())
+                    .orElseThrow(() -> new ResourceNotFoundException("Không tìm thấy user tương ứng"));
+            builder.nguoiDung(nguoiDung);
+        }
+        Customer khachHang = builder.build();
         customerRepository.save(khachHang);
         return customerMapper.toResponse(khachHang);
     }
-
     @Override
     public CustomerResponse capNhat(Long id, CustomerRequest request) {
         Customer khachHang = timTheoId(id);

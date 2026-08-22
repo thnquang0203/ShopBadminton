@@ -20,4 +20,5 @@ public class CustomerRequest {
     private String email;
 
     private String diaChi;
+    private Long maNguoiDung;
 }
