@@ -41,4 +41,10 @@ public class CourtBookingController {
     public ResponseEntity<CourtBookingResponse> layChiTiet(@PathVariable Long id) {
         return ResponseEntity.ok(courtBookingService.layChiTiet(id));
     }
+    @PreAuthorize("hasRole('CUSTOMER')")
+    @PatchMapping("/{id}/huy")
+    public ResponseEntity<Void> huyDatSan(@PathVariable Long id, Authentication authentication) {
+        courtBookingService.huyDatSan(id, authentication.getName());
+        return ResponseEntity.noContent().build();
+    }
 }

@@ -8,4 +8,5 @@ public interface CourtBookingService {
     CourtBookingResponse datSan(CourtBookingRequest request, String tenDangNhapKhachHang);
     List<CourtBookingResponse> layTheoKhachHang(String tenDangNhapKhachHang);
     CourtBookingResponse layChiTiet(Long id);
+    void huyDatSan(Long id, String tenDangNhapKhachHang);
 }

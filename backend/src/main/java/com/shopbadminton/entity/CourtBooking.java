@@ -32,10 +32,10 @@ public class CourtBooking {
     @Column(name = "booking_date", nullable = false)
     private LocalDate ngayDat;
 
-    @Column(name = "start_time", nullable = false)
+    @Column(name = "start_time", nullable = false, columnDefinition = "TIME")
     private LocalTime gioBatDau;
 
-    @Column(name = "end_time", nullable = false)
+    @Column(name = "end_time", nullable = false, columnDefinition = "TIME")
     private LocalTime gioKetThuc;
 
     @Column(name = "status", length = 20)
