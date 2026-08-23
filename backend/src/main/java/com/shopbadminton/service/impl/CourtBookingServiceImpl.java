@@ -16,6 +16,7 @@ import com.shopbadminton.repository.UserRepository;
 import com.shopbadminton.service.CourtBookingService;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -116,5 +117,39 @@ public class CourtBookingServiceImpl implements CourtBookingService {
 
         datSan.setTrangThai("CANCELLED");
         courtBookingRepository.save(datSan);
+    }
+    @Override
+    public List<CourtBookingResponse> layLichTheoNgay(LocalDate ngayDat) {
+        return courtBookingRepository.findByNgayDatOrderBySan_MaSanAscGioBatDauAsc(ngayDat).stream()
+                .map(courtBookingMapper::toResponse)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<CourtBookingResponse> layLichTheoSanVaNgay(Integer maSan, LocalDate ngayDat) {
+        return courtBookingRepository.findBySan_MaSanAndNgayDatOrderByGioBatDauAsc(maSan, ngayDat).stream()
+                .map(courtBookingMapper::toResponse)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<CourtBookingResponse> layLichTheoTrangThai(LocalDate ngayDat, String trangThai) {
+        return courtBookingRepository.findByNgayDatAndTrangThaiOrderByGioBatDauAsc(ngayDat, trangThai).stream()
+                .map(courtBookingMapper::toResponse)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public CourtBookingResponse xacNhanDatSan(Long id) {
+        CourtBooking datSan = courtBookingRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Không tìm thấy lịch đặt sân"));
+
+        if (!"PENDING".equals(datSan.getTrangThai())) {
+            throw new BadRequestException("Chỉ có thể xác nhận lịch đặt ở trong trạng thái PENDING");
+        }
+
+        datSan.setTrangThai("CONFIRMED");
+        courtBookingRepository.save(datSan);
+        return courtBookingMapper.toResponse(datSan);
     }
 }

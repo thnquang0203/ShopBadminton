@@ -10,6 +10,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -46,5 +47,31 @@ public class CourtBookingController {
     public ResponseEntity<Void> huyDatSan(@PathVariable Long id, Authentication authentication) {
         courtBookingService.huyDatSan(id, authentication.getName());
         return ResponseEntity.noContent().build();
+    }
+    @PreAuthorize("hasAnyRole('ADMIN','EMPLOYEE')")
+    @GetMapping("/lich")
+    public ResponseEntity<List<CourtBookingResponse>> xemLichTheoNgay(
+            @RequestParam LocalDate ngayDat) {
+        return ResponseEntity.ok(courtBookingService.layLichTheoNgay(ngayDat));
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN','EMPLOYEE')")
+    @GetMapping("/lich/san")
+    public ResponseEntity<List<CourtBookingResponse>> xemLichTheoSan(
+            @RequestParam Integer maSan, @RequestParam LocalDate ngayDat) {
+        return ResponseEntity.ok(courtBookingService.layLichTheoSanVaNgay(maSan, ngayDat));
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN','EMPLOYEE')")
+    @GetMapping("/lich/trang-thai")
+    public ResponseEntity<List<CourtBookingResponse>> xemLichTheoTrangThai(
+            @RequestParam LocalDate ngayDat, @RequestParam String trangThai) {
+        return ResponseEntity.ok(courtBookingService.layLichTheoTrangThai(ngayDat, trangThai));
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN','EMPLOYEE')")
+    @PatchMapping("/{id}/xac-nhan")
+    public ResponseEntity<CourtBookingResponse> xacNhan(@PathVariable Long id) {
+        return ResponseEntity.ok(courtBookingService.xacNhanDatSan(id));
     }
 }

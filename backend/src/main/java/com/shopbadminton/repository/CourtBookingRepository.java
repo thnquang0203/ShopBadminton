@@ -20,12 +20,15 @@ public interface CourtBookingRepository extends JpaRepository<CourtBooking, Long
     	    AND CAST(start_time AS TIME) < CAST(:gioKetThuc AS TIME)
     	    AND CAST(end_time AS TIME) > CAST(:gioBatDau AS TIME)
     	    """, nativeQuery = true)
-    	List<CourtBooking> timBookingTrungGio(Integer maSan, LocalDate ngayDat, LocalTime gioBatDau, LocalTime gioKetThuc);
+    List<CourtBooking> timBookingTrungGio(Integer maSan, LocalDate ngayDat, LocalTime gioBatDau, LocalTime gioKetThuc);
     @Query("""
     	    SELECT cb FROM CourtBooking cb
     	    WHERE cb.trangThai IN ('PENDING', 'CONFIRMED')
     	    AND (cb.ngayDat < CURRENT_DATE
     	         OR (cb.ngayDat = CURRENT_DATE AND cb.gioKetThuc < CURRENT_TIME))
     	    """)
-    	List<CourtBooking> timBookingDaQuaGio();
+    List<CourtBooking> timBookingDaQuaGio();
+    List<CourtBooking> findBySan_MaSanAndNgayDatOrderByGioBatDauAsc(Integer maSan, LocalDate ngayDat);
+    List<CourtBooking> findByNgayDatOrderBySan_MaSanAscGioBatDauAsc(LocalDate ngayDat);
+    List<CourtBooking> findByNgayDatAndTrangThaiOrderByGioBatDauAsc(LocalDate ngayDat, String trangThai);
 }
