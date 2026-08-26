@@ -104,4 +104,14 @@ public class GlobalExceptionHandler {
                         .build()
         );
     }
+    @ExceptionHandler(org.springframework.dao.DataIntegrityViolationException.class)
+    public ResponseEntity<ErrorResponse> xuLyViPhamRangBuocDuLieu(org.springframework.dao.DataIntegrityViolationException ex) {
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(
+                ErrorResponse.builder()
+                        .maLoi(HttpStatus.CONFLICT.value())
+                        .thongBao("Dữ liệu bị trùng lặp hoặc vi phạm ràng buộc, vui lòng thử lại")
+                        .thoiGian(LocalDateTime.now())
+                        .build()
+        );
+    }
 }

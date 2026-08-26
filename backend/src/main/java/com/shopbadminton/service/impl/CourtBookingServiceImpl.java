@@ -42,6 +42,7 @@ public class CourtBookingServiceImpl implements CourtBookingService {
     }
 
     @Override
+    @org.springframework.transaction.annotation.Transactional
     public CourtBookingResponse datSan(CourtBookingRequest request, String tenDangNhapKhachHang) {
         BadmintonCourt san = badmintonCourtRepository.findById(request.getMaSan())
                 .orElseThrow(() -> new ResourceNotFoundException("Không tìm thấy sân"));
@@ -54,7 +55,7 @@ public class CourtBookingServiceImpl implements CourtBookingService {
             throw new BadRequestException("Giờ bắt đầu phải trước giờ kết thúc");
         }
 
-        List<CourtBooking> trungLich = courtBookingRepository.timBookingTrungGio(
+        List<CourtBooking> trungLich = courtBookingRepository.timBookingTrungGioCoKhoa(
                 request.getMaSan(), request.getNgayDat(), request.getGioBatDau(), request.getGioKetThuc());
 
         if (!trungLich.isEmpty()) {
