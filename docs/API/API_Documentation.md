@@ -90,3 +90,17 @@
 | GET | /api/products/{maSanPham}/images |
 | POST | /api/products/{maSanPham}/images (multipart/form-data: file, laAnhDaiDien) |
 | DELETE | /api/products/{maSanPham}/images/{maAnh} |
+
+## BadmintonCourt (GET công khai, ghi dữ liệu ADMIN, đổi trạng thái ADMIN/EMPLOYEE)
+`/api/courts...`
+
+## CourtBooking
+| Method | Endpoint | Role |
+|---|---|---|
+| POST | /api/bookings | CUSTOMER |
+| GET | /api/bookings/cua-toi | CUSTOMER |
+| PATCH | /api/bookings/{id}/huy | CUSTOMER (chu so huu) |
+| GET | /api/bookings/lich | ADMIN/EMPLOYEE |
+| GET | /api/bookings/lich/san | ADMIN/EMPLOYEE |
+| GET | /api/bookings/lich/trang-thai | ADMIN/EMPLOYEE |
+| PATCH | /api/bookings/{id}/xac-nhan | ADMIN/EMPLOYEE |
